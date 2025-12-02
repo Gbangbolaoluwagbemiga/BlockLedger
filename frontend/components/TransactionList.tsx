@@ -19,7 +19,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 import { ArrowUpCircle, ArrowDownCircle, Loader2 } from "lucide-react";
-import { ethers } from "ethers";
+import { formatEther } from "viem";
 
 export function TransactionList() {
   const { transactionIds, address } = useBlockLedger();
@@ -92,7 +92,7 @@ function TransactionRow({ transactionId }: { transactionId: bigint }) {
     );
   }
 
-  const amount = Number(ethers.formatEther(transaction.amount));
+  const amount = Number(formatEther(transaction.amount));
   const date = new Date(Number(transaction.timestamp) * 1000);
 
   return (

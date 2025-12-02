@@ -1,6 +1,6 @@
 "use client";
 
-import { useAccount, useDisconnect } from "@reown/appkit-adapter-ethers/react";
+import { useAccount, useDisconnect } from "wagmi";
 import { Button } from "@/components/ui/button";
 import { useAppKit } from "@reown/appkit/react";
 import { Wallet, LogOut } from "lucide-react";

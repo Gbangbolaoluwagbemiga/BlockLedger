@@ -1,15 +1,24 @@
 "use client";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { WagmiProvider, createConfig, http } from "wagmi";
+import { base } from "wagmi/chains";
 import { createAppKit } from "@reown/appkit/react";
-import { WagmiAdapter } from "@reown/appkit-adapter-ethers";
-import { base } from "@reown/appkit/networks";
+import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
 import { Toaster } from "@/components/ui/sonner";
 import { useState } from "react";
 
-// Create Wagmi adapter
+// Create Wagmi config
+const wagmiConfig = createConfig({
+  chains: [base],
+  transports: {
+    [base.id]: http(),
+  },
+});
+
+// Create Wagmi adapter for Reown
 const wagmiAdapter = new WagmiAdapter({
-  networks: [base],
+  wagmi: wagmiConfig,
   projectId: process.env.NEXT_PUBLIC_REOWN_PROJECT_ID || "YOUR_PROJECT_ID",
 });
 
@@ -45,9 +54,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
   );
 
   return (
-    <QueryClientProvider client={queryClient}>
-      {children}
-      <Toaster />
-    </QueryClientProvider>
+    <WagmiProvider config={wagmiConfig}>
+      <QueryClientProvider client={queryClient}>
+        {children}
+        <Toaster />
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 }

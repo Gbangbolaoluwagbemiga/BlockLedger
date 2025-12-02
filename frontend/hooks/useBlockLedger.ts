@@ -5,8 +5,8 @@ import {
   useWriteContract,
   useWaitForTransactionReceipt,
   useAccount,
-} from "@reown/appkit-adapter-ethers/react";
-import { ethers } from "ethers";
+} from "wagmi";
+import { parseEther, formatEther } from "viem";
 import { BLOCKLEDGER_ABI, BLOCKLEDGER_ADDRESS } from "@/lib/contract";
 
 export interface Transaction {
@@ -68,7 +68,7 @@ export function useBlockLedger() {
   ) => {
     if (!address) throw new Error("Wallet not connected");
 
-    const amountWei = ethers.parseEther(amount);
+    const amountWei = parseEther(amount);
 
     await writeContract({
       address: BLOCKLEDGER_ADDRESS,
@@ -81,8 +81,8 @@ export function useBlockLedger() {
   return {
     address,
     isConnected,
-    balance: balance ? Number(balance) / 1e18 : 0,
-    transactionIds: transactionIds || [],
+    balance: balance ? Number(formatEther(balance as bigint)) : 0,
+    transactionIds: (transactionIds as bigint[]) || [],
     totalTransactions: totalTransactions ? Number(totalTransactions) : 0,
     recordTransaction,
     isPending,

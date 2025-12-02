@@ -9,7 +9,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Wallet, TrendingUp, TrendingDown, FileText } from "lucide-react";
-import { formatEther } from "ethers";
 
 export function StatsCards() {
   const { balance, totalTransactions, address } = useBlockLedger();
