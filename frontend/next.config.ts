@@ -7,11 +7,18 @@ const nextConfig: NextConfig = {
     // Exclude test files and other problematic files
     config.module = config.module || {};
     config.module.rules = config.module.rules || [];
-    
+
     config.module.rules.push({
       test: /\.test\.(js|ts|tsx|jsx)$/,
       loader: "ignore-loader",
     });
+
+    // Ignore optional wallet connector dependencies
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      "@coinbase/wallet-sdk": false,
+      "@gemini-wallet/core": false,
+    };
 
     config.resolve.fallback = {
       ...config.resolve.fallback,

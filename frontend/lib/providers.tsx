@@ -1,25 +1,21 @@
 "use client";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { WagmiProvider, createConfig, http } from "wagmi";
+import { WagmiProvider } from "wagmi";
 import { base } from "wagmi/chains";
 import { createAppKit } from "@reown/appkit/react";
 import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
+import { http } from "wagmi";
 import { Toaster } from "@/components/ui/sonner";
 import { useState } from "react";
 
-// Create Wagmi config
-const wagmiConfig = createConfig({
-  chains: [base],
+// Create Wagmi adapter for Reown (it will create the wagmi config internally)
+const wagmiAdapter = new WagmiAdapter({
+  networks: [base],
+  projectId: process.env.NEXT_PUBLIC_REOWN_PROJECT_ID || "YOUR_PROJECT_ID",
   transports: {
     [base.id]: http(),
   },
-});
-
-// Create Wagmi adapter for Reown
-const wagmiAdapter = new WagmiAdapter({
-  wagmi: wagmiConfig,
-  projectId: process.env.NEXT_PUBLIC_REOWN_PROJECT_ID || "YOUR_PROJECT_ID",
 });
 
 // Configure Reown AppKit
@@ -52,6 +48,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
         },
       })
   );
+
+  // Get the wagmi config from the adapter
+  const wagmiConfig = wagmiAdapter.wagmiConfig;
 
   return (
     <WagmiProvider config={wagmiConfig}>
