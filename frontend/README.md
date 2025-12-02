@@ -2,6 +2,19 @@
 
 A beautiful, modern frontend for BlockLedger - an immutable accounting ledger on Base blockchain.
 
+## ⚠️ Important Setup Step
+
+**You MUST set your Reown Project ID before running the app!**
+
+1. Get your Project ID from [https://cloud.reown.com](https://cloud.reown.com)
+2. Create a `.env.local` file in the `frontend` directory:
+   ```bash
+   echo "NEXT_PUBLIC_REOWN_PROJECT_ID=your_actual_project_id_here" > .env.local
+   ```
+3. Replace `your_actual_project_id_here` with your actual Reown Project ID
+
+Without a valid Project ID, wallet connection will not work properly.
+
 ## Features
 
 - 🔗 **Wallet Connection** - Connect using Reown (WalletConnect) with support for multiple wallets
@@ -10,7 +23,7 @@ A beautiful, modern frontend for BlockLedger - an immutable accounting ledger on
 - 🎨 **Beautiful UI** - Built with shadcn/ui and Tailwind CSS
 - 🔒 **On-Chain** - All transactions are permanently recorded on Base blockchain
 
-## Setup
+## Quick Start
 
 1. **Install dependencies:**
 
@@ -18,30 +31,20 @@ A beautiful, modern frontend for BlockLedger - an immutable accounting ledger on
 npm install
 ```
 
-2. **Configure environment variables:**
+2. **Set up environment variables:**
 
 ```bash
-cp .env.local.example .env.local
+# Create .env.local file
+echo "NEXT_PUBLIC_REOWN_PROJECT_ID=your_project_id_here" > .env.local
 ```
 
-3. **Get your Reown Project ID:**
-
-   - Visit [https://cloud.reown.com](https://cloud.reown.com)
-   - Create a new project
-   - Copy your Project ID
-   - Add it to `.env.local`:
-
-   ```
-   NEXT_PUBLIC_REOWN_PROJECT_ID=your_project_id_here
-   ```
-
-4. **Run the development server:**
+3. **Run the development server:**
 
 ```bash
 npm run dev
 ```
 
-5. **Open [http://localhost:3000](http://localhost:3000)** in your browser
+4. **Open [http://localhost:3000](http://localhost:3000)** in your browser
 
 ## Build for Production
 
@@ -59,29 +62,30 @@ npm start
 ## Tech Stack
 
 - **Framework:** Next.js 16 with App Router
-- **Wallet:** Reown AppKit (WalletConnect)
+- **Wallet:** Reown AppKit (WalletConnect) with Wagmi
 - **UI Components:** shadcn/ui
 - **Styling:** Tailwind CSS
-- **Blockchain:** Ethers.js v6
+- **Blockchain:** Wagmi + Viem
 - **State Management:** TanStack Query
 
-## Project Structure
+## Troubleshooting
 
-```
-frontend/
-├── app/              # Next.js app router pages
-├── components/       # React components
-│   ├── ui/          # shadcn/ui components
-│   ├── ConnectWallet.tsx
-│   ├── TransactionForm.tsx
-│   ├── TransactionList.tsx
-│   └── StatsCards.tsx
-├── hooks/           # Custom React hooks
-│   └── useBlockLedger.ts
-└── lib/             # Utilities and config
-    ├── contract.ts  # Contract ABI and address
-    └── providers.tsx # Reown and Query providers
-```
+### Wallet Connection Issues
+
+- Make sure `NEXT_PUBLIC_REOWN_PROJECT_ID` is set in `.env.local`
+- Check that you're on Base network in your wallet
+- Ensure you have some ETH for gas fees
+
+### Build Errors
+
+- The build uses webpack (not Turbopack) for stability
+- Optional wallet connectors are automatically ignored
+- If you see module resolution errors, try deleting `node_modules` and running `npm install` again
+
+### Reown Config Error (403)
+
+- This happens when `NEXT_PUBLIC_REOWN_PROJECT_ID` is set to `YOUR_PROJECT_ID` (placeholder)
+- Get a real Project ID from [cloud.reown.com](https://cloud.reown.com)
 
 ## License
 

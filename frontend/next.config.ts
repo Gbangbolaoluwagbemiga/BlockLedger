@@ -13,12 +13,32 @@ const nextConfig: NextConfig = {
       loader: "ignore-loader",
     });
 
-    // Ignore optional wallet connector dependencies
+    // Ignore optional wallet connector dependencies and React Native modules
     config.resolve.alias = {
       ...config.resolve.alias,
       "@coinbase/wallet-sdk": false,
       "@gemini-wallet/core": false,
+      "@react-native-async-storage/async-storage": false,
     };
+
+    // Ignore these modules completely (handles dynamic imports)
+    const webpack = require("webpack");
+    config.plugins = config.plugins || [];
+    config.plugins.push(
+      new webpack.IgnorePlugin({
+        checkResource(resource: string, context: string) {
+          // Ignore optional wallet SDKs that use dynamic imports
+          if (
+            resource.includes("@coinbase/wallet-sdk") ||
+            resource.includes("@gemini-wallet/core") ||
+            resource.includes("@react-native-async-storage/async-storage")
+          ) {
+            return true;
+          }
+          return false;
+        },
+      })
+    );
 
     config.resolve.fallback = {
       ...config.resolve.fallback,
