@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BlockLedger Frontend
 
-## Getting Started
+A beautiful, modern frontend for BlockLedger - an immutable accounting ledger on Base blockchain.
 
-First, run the development server:
+## Features
+
+- 🔗 **Wallet Connection** - Connect using Reown (WalletConnect) with support for multiple wallets
+- 📊 **Transaction Dashboard** - View your balance, total transactions, and transaction history
+- ➕ **Record Transactions** - Add income and expense transactions on-chain
+- 🎨 **Beautiful UI** - Built with shadcn/ui and Tailwind CSS
+- 🔒 **On-Chain** - All transactions are permanently recorded on Base blockchain
+
+## Setup
+
+1. **Install dependencies:**
+
+```bash
+npm install
+```
+
+2. **Configure environment variables:**
+
+```bash
+cp .env.local.example .env.local
+```
+
+3. **Get your Reown Project ID:**
+
+   - Visit [https://cloud.reown.com](https://cloud.reown.com)
+   - Create a new project
+   - Copy your Project ID
+   - Add it to `.env.local`:
+
+   ```
+   NEXT_PUBLIC_REOWN_PROJECT_ID=your_project_id_here
+   ```
+
+4. **Run the development server:**
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. **Open [http://localhost:3000](http://localhost:3000)** in your browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## Contract Information
 
-To learn more about Next.js, take a look at the following resources:
+- **Contract Address:** `0xf4B8c39F0f5C7cB1bA3dFb9CbCAd9aA697236277`
+- **Network:** Base Mainnet (Chain ID: 8453)
+- **Explorer:** [View on BaseScan](https://basescan.org/address/0xf4B8c39F0f5C7cB1bA3dFb9CbCAd9aA697236277)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Framework:** Next.js 16 with App Router
+- **Wallet:** Reown AppKit (WalletConnect)
+- **UI Components:** shadcn/ui
+- **Styling:** Tailwind CSS
+- **Blockchain:** Ethers.js v6
+- **State Management:** TanStack Query
 
-## Deploy on Vercel
+## Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+frontend/
+├── app/              # Next.js app router pages
+├── components/       # React components
+│   ├── ui/          # shadcn/ui components
+│   ├── ConnectWallet.tsx
+│   ├── TransactionForm.tsx
+│   ├── TransactionList.tsx
+│   └── StatsCards.tsx
+├── hooks/           # Custom React hooks
+│   └── useBlockLedger.ts
+└── lib/             # Utilities and config
+    ├── contract.ts  # Contract ABI and address
+    └── providers.tsx # Reown and Query providers
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+MIT
