@@ -1,11 +1,18 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Use webpack instead of Turbopack for now
-  // Run with: npm run dev -- --webpack
-  // Or build with: NEXT_PRIVATE_SKIP_TURBO=1 npm run build
+  // Use webpack for stable builds
   turbopack: {},
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
+    // Exclude test files and other problematic files
+    config.module = config.module || {};
+    config.module.rules = config.module.rules || [];
+    
+    config.module.rules.push({
+      test: /\.test\.(js|ts|tsx|jsx)$/,
+      loader: "ignore-loader",
+    });
+
     config.resolve.fallback = {
       ...config.resolve.fallback,
       fs: false,
