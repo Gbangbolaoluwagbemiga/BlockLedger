@@ -4,6 +4,7 @@ import { ConnectWallet } from "@/components/ConnectWallet";
 import { TransactionForm } from "@/components/TransactionForm";
 import { TransactionList } from "@/components/TransactionList";
 import { StatsCards } from "@/components/StatsCards";
+import { TransactionChart } from "@/components/TransactionChart";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { BookOpen, Shield } from "lucide-react";
 
@@ -33,6 +34,11 @@ export default function Home() {
         {/* Stats Cards */}
         <div className="mb-8">
           <StatsCards />
+        </div>
+
+        {/* Charts */}
+        <div className="mb-8">
+          <TransactionChart />
         </div>
 
         {/* Main Content */}
