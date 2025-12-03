@@ -24,6 +24,8 @@ const nextConfig: NextConfig = {
       "@coinbase/wallet-sdk": false,
       "@gemini-wallet/core": false,
       "@react-native-async-storage/async-storage": false,
+      "@solana/kit": false,
+      axios: false,
     };
 
     // Ignore these modules completely (handles dynamic imports)
@@ -32,11 +34,13 @@ const nextConfig: NextConfig = {
     config.plugins.push(
       new webpack.IgnorePlugin({
         checkResource(resource: string, context: string) {
-          // Ignore optional wallet SDKs that use dynamic imports
+          // Ignore optional wallet SDKs and Solana dependencies that use dynamic imports
           if (
             resource.includes("@coinbase/wallet-sdk") ||
             resource.includes("@gemini-wallet/core") ||
-            resource.includes("@react-native-async-storage/async-storage")
+            resource.includes("@react-native-async-storage/async-storage") ||
+            resource.includes("@solana/kit") ||
+            resource === "axios"
           ) {
             return true;
           }
