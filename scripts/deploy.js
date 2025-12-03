@@ -13,13 +13,17 @@ async function main() {
   console.log("Network:", hre.network.name);
   console.log("Chain ID:", (await hre.ethers.provider.getNetwork()).chainId);
 
-  // Verify contract on BaseScan if API key is provided
-  if (hre.network.name === "base" || hre.network.name === "baseSepolia") {
+  // Verify contract on block explorer if API key is provided
+  const verifyNetworks = ["base", "baseSepolia", "celo", "celoAlfajores"];
+  if (verifyNetworks.includes(hre.network.name)) {
     console.log("\nWaiting for block confirmations...");
     await blockLedger.deploymentTransaction()?.wait(5);
 
     try {
-      console.log("Verifying contract on BaseScan...");
+      const explorerName = hre.network.name.includes("celo")
+        ? "CeloScan"
+        : "BaseScan";
+      console.log(`Verifying contract on ${explorerName}...`);
       await hre.run("verify:verify", {
         address: address,
         constructorArguments: [],

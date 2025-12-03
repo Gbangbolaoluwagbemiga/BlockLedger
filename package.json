@@ -7,6 +7,8 @@
     "compile": "hardhat compile",
     "deploy:base": "hardhat run scripts/deploy.js --network base",
     "deploy:base-sepolia": "hardhat run scripts/deploy.js --network baseSepolia",
+    "deploy:celo": "hardhat run scripts/deploy.js --network celo",
+    "deploy:celo-alfajores": "hardhat run scripts/deploy.js --network celoAlfajores",
     "test": "hardhat test"
   },
   "keywords": [
