@@ -17,6 +17,13 @@ export const metadata: Metadata = {
   title: "BlockLedger - Immutable Accounting on Base",
   description:
     "Record income and expenses permanently on the blockchain with full transparency",
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    apple: "/apple-icon.svg",
+  },
 };
 
 export default function RootLayout({
