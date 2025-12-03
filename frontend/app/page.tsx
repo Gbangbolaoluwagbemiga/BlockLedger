@@ -4,6 +4,7 @@ import { ConnectWallet } from "@/components/ConnectWallet";
 import { TransactionForm } from "@/components/TransactionForm";
 import { TransactionList } from "@/components/TransactionList";
 import { StatsCards } from "@/components/StatsCards";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { BookOpen, Shield } from "lucide-react";
 
 export default function Home() {
@@ -23,7 +24,10 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <ConnectWallet />
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+            <ConnectWallet />
+          </div>
         </header>
 
         {/* Stats Cards */}

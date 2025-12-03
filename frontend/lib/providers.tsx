@@ -7,6 +7,7 @@ import { createAppKit } from "@reown/appkit/react";
 import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
 import { http } from "wagmi";
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "next-themes";
 import { useState } from "react";
 
 // Create Wagmi adapter for Reown (it will create the wagmi config internally)
@@ -53,11 +54,13 @@ export function Providers({ children }: { children: React.ReactNode }) {
   const wagmiConfig = wagmiAdapter.wagmiConfig;
 
   return (
-    <WagmiProvider config={wagmiConfig}>
-      <QueryClientProvider client={queryClient}>
-        {children}
-        <Toaster />
-      </QueryClientProvider>
-    </WagmiProvider>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <WagmiProvider config={wagmiConfig}>
+        <QueryClientProvider client={queryClient}>
+          {children}
+          <Toaster />
+        </QueryClientProvider>
+      </WagmiProvider>
+    </ThemeProvider>
   );
 }
