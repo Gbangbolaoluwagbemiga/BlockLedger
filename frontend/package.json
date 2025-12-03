@@ -25,6 +25,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "dotenv": "^17.2.3",
     "ethers": "^6.15.0",
     "lucide-react": "^0.555.0",
     "next": "16.0.6",
@@ -39,6 +40,9 @@
     "wagmi": "^3.0.2"
   },
   "devDependencies": {
+    "@coinbase/wallet-sdk": "^4.3.7",
+    "@gemini-wallet/core": "^0.3.2",
+    "@react-native-async-storage/async-storage": "^1.24.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
